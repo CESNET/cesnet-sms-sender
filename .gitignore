@@ -1,0 +1,26 @@
+# Ignore Java project files #
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore Maven target #
+/target
+
+# Ignore NetBeans project files #
+
+nbproject/private/
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# LINUX ignore #
+
+.*
+!.gitignore
+!.gitattributes
+*~
