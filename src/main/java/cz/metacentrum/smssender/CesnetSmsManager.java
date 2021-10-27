@@ -12,14 +12,14 @@ import org.apache.http.client.fluent.Response;
  * @author Jiri Mauritz <jirmauritz at gmail dot com>
  */
 public class CesnetSmsManager implements SmsManager {
-	
+
 	// URL identificator
 	public static final String url = "https://sms.cesnet.cz/sendSMS";
-	
+
 	/**
 	 * Method sends sms with specified message to specified phone number.
 	 * Used GSM gate is located at sms.cesnet.cz.
-	 * 
+	 *
 	 * @param phone receiver's phone number
 	 * @param message sms text message
 	 * @return server response which consists of status code and error message
@@ -36,20 +36,20 @@ public class CesnetSmsManager implements SmsManager {
 			ServerResponse serverResponse = new ServerResponse(3, ex.getLocalizedMessage());
 			return serverResponse;
 		}
-		
+
 		// first line of response is a status code
 		// second line of response is a error message
 		String[] responseArr = content.asString().split("\n");
 		int responseCode = Integer.parseInt(responseArr[0]);
 		int outputCode = 0;
-		
-		/* converting cesnet GSM error codes to 
-			0 (successful), 
+
+		/* converting cesnet GSM error codes to
+			0 (successful),
 			1 (wrong phone format),
 			2 (wrong format of message)
 			3 (internal error)
 		   according to this table
-		
+
 		   0	Message succesfully sent.	Zpráva byla odeslána, žádná chyba.
           -1	Access denied.	Klient nebyl registrován, proveďte registraci u správce služby.
 		  -2	Certificate hostname mismatch, access denied.	Jméno stroje v předmětu certifikátu nesouhlasí s jeho reverzním DNS záznamem.
@@ -84,8 +84,8 @@ public class CesnetSmsManager implements SmsManager {
 			case -255:	outputCode = 3;
 					break;
 		}
-		
+
 		return new ServerResponse(outputCode, responseArr[1]);
 	}
-	
+
 }
